@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style media="screen">
+      .wrapper {
+        width: 70%;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>User: {{ users.first_name }} {{users.last_name}}</h1>
+      <p>Email: {{ users.email }}</p>
+      <p>Total Reviews: {{count}}</p>
+      <!-- <a href="/book_entry">Add Book And Review</a>
+      <a href="/logout">Logout</a>
+      <a href="/new_book">Home</a> -->
+      <a class="btn btn-default" href="/book_entry">
+        <i class="fa fa-book"></i> New Book</a>
+      <a class="btn btn-default" href="/new_book">
+        <i class="fa fa-home"></i> Home</a>
+      <a class="btn btn-default" href="/logout">
+        <i class="fa fa-cog"></i> Logout</a>
+      <h2>Recent Book Reviews:</h2>
+      {% for review in reviews %}
+        {% if review.review_creator.id == users.id %}
+          {% for book in books %}
+            {% if book.id == review.reviewed_book.id %}
+              <a href="/bookreview/{{book.id}}">{{book.title}} {{review.rating}}</a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </body>
+</html>

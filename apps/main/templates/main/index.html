@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dojo Secrets</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style media="screen">
+      form, h2, h1 {
+        width: 70%;
+        margin: auto;
+        margin-bottom: 20px
+      }
+      label, input, div {
+        display: block;
+        width: 50%;
+      }
+      form input[type="submit"] {
+        padding: 10px 30px;
+        background: rgb(240,240,240);
+        border-radius: 5px;
+        box-shadow: rgb(0,0,0);
+        margin-top: 10px;
+      }
+      .messages {
+        color: rgb(199,55,51);
+      }
+    </style>
+  </head>
+  <body>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <h1>Book Reviewer</h1>
+
+  <h2>Login --</h1>
+  <form class="" action="/login" method="post">
+    {% csrf_token %}
+    <!-- <label for="email">Email:</label>
+    <input type="text" name="email" value="">
+    <label for="password">Password:</label>
+    <input type="text" name="password" value=""> -->
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></span>
+      <input class="form-control" name = "email"type="text" placeholder="Email">
+    </div>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+      <input class="form-control" name="password" type="password" placeholder="Password">
+    </div>
+
+    <input type="Submit" name="" value="Login">
+  </form>
+
+  <h2>Register --</h1>
+    <form class="" action="/create" method="post">
+      {% csrf_token %}
+      <!-- <label for="first_name">First Name:</label>
+      <input type="text" name="first_name" value="">
+      <label for="last_name">Last Name:</label>
+      <input type="text" name="last_name" value="">
+      <label for="email">Email:</label>
+      <input type="text" name="email" value="">
+      <label for="password">Password:</label>
+      <input type="text" name="password" value="">
+      <label for="cpassword">Confirm Password:</label>
+      <input type="text" name="cpassword" value=""> -->
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+        <input class="form-control" name = "first_name"type="text" placeholder="First Name">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+        <input class="form-control" name="last_name" type="text" placeholder="Last Name">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></span>
+        <input class="form-control" name = "email"type="text" placeholder="Email">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+        <input class="form-control" name="password" type="text" placeholder="Password">
+      </div>
+      <div class="input-group margin-bottom-sm">
+        <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+        <input class="form-control" name = "cpassword"type="text" placeholder="Confirm Password">
+      </div>
+
+      <input type="Submit" name="" value="Register">
+  </form>
+  </body>
+</html>

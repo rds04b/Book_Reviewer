@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style media="screen">
+
+      .review_content p {
+        word-wrap: break-word;
+      }
+      .wrapper {
+        width: 70%;
+        padding-top: 20px;
+        margin: auto;
+      }
+      label, input, textarea {
+        display: block;
+        width: 100%;
+      }
+      textarea {
+        min-height: 250px;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+      }
+      ul li {
+        list-style-type: none;
+        display: inline-block;
+        margin: 10px;
+        color: white;
+        text-shadow: 2px 2px 7px grey;
+        font-size: 25px !important;
+      }
+      ul li:hover {
+        color: yellow;
+      }
+      ul li.active,ul li.secondary-active {
+        color: yellow;
+      }
+      input[type="radio"] {
+        display: none;
+      }
+      form input[type="submit"] {
+        padding: 10px 30px;
+        background: rgb(240, 240, 240);
+        border-radius: 5px;
+        box-shadow: rgb(0,0,0);
+        margin-top: 10px;
+      }
+      .messages {
+        color: rgb(199,55,51);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+    <a class="btn btn-default" href="/new_book">
+      <i class="fa fa-home"></i> Home</a>
+    <a class="btn btn-default" href="/book_entry">
+      <i class="fa fa-book"></i> New Book</a>
+    <a class="btn btn-default" href="/logout">
+      <i class="fa fa-cog"></i> Logout</a>
+
+    <h2>Book: {{book.title}}</h2>
+    <h2>Author: {{book.author}}</h2>
+      <div class="review_content">
+        <hr>
+        <h4><span class="label label-danger">Rating: {{reviews.rating}} <i class="fa fa-star" aria-hidden="true"></i></span>  <a href="/like/{{review.id}}"><span class="label label-primary">Likes {{review.like}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a></h4>
+            <h5>Reviewed by: <a href="/user/{{user.id}}">{{user.first_name}} {{user.last_name}},</a> <span class="glyphicon glyphicon-time"></span> {{review.created_at}}</h5><br>
+            <p><i class="fa fa-quote-left fa-pull-left fa-border" aria-hidden="true"></i> {{review.review}} <i class="fa fa-quote-right fa-border" aria-hidden="true"></i></p>
+            <br>
+        {% if review.review_creator.id == request.session.id %}
+          <a class="btn btn-danger" href="/delete/{{review.id}}/{{review.reviewed_book.id}}">
+            <i class="fa fa-trash-o fa-lg"></i> Delete</a>
+          {% csrf_token %}
+        {% endif %}
+        </hr>
+      </div>
+      </form>
+      <h3>Edit Review</h3>
+      <form class="" action="/update_edit/{{review.id}}/{{review.reviewed_book.id}}" method="post">
+      {% csrf_token %}
+        <ul class="s_rating">
+          <li><input type="radio" name="ratings" id="rating_0" value="0" style="display:none;" checked="checked"></li>
+          <li><label for="rating_1"><i class="fa fa-star" aria-hidden="true"></i></label><input type="radio" name="ratings" id="rating_1" value="1"></li>
+          <li><label for="rating_2"><i class="fa fa-star" aria-hidden="true"></i></label><input type="radio" name="ratings" id="rating_2" value="2"></li>
+          <li><label for="rating_3"><i class="fa fa-star" aria-hidden="true"></i></label><input type="radio" name="ratings" id="rating_3" value="3"></li>
+          <li><label for="rating_4"><i class="fa fa-star" aria-hidden="true"></i></label><input type="radio" name="ratings" id="rating_4" value="4"></li>
+          <li><label for="rating_5"><i class="fa fa-star" aria-hidden="true"></i></label><input type="radio" name="ratings" id="rating_5" value="5"></li>
+        </ul>
+        <textarea name="review" rows="8" cols="80" value="">{{review.review}}</textarea>
+        <input type="submit" name="sub_review" value="Update Review">
+      </form>
+      <script>
+        $('li').on('click',function(){
+          $('li').removeClass('active');
+          $('li').removeClass('secondary-active');
+          $(this).addClass('active');
+          $(this).prevAll().addClass('secondary-active');
+        })
+      </script>
+    </div>
+  </body>
+</html>

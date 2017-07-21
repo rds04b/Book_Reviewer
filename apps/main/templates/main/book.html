@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style media="screen">
+      * {
+        /*border: 1px dotted green;*/
+      }
+      .wrapper {
+        width: 70%;
+        margin: auto;
+      }
+      .mainleft {
+        width: 570px;
+        vertical-align: top;
+        display: inline-block;
+        padding: 20px;
+        margin-right: 60px;
+      }
+      .mainleft h5 {
+        font-size: 20px;
+      }
+      .label-danger {
+        margin-left: 20px;
+      }
+      .mainleft p, h5 {
+        text-align: left;
+        padding-bottom: 10px;
+        word-wrap: break-word;
+      }
+      .right {
+        text-align: right;
+        width: 220px;
+        display: inline-block;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: rgb(0,0,0);
+        background: rgb(255,248,231)
+      }
+    </style>
+  </head>
+  <body>
+  <div class="wrapper">
+    <div class="mainleft">
+    <h2>Welcome: {{ request.session.name }}</h2>
+
+    <h3>Recent Reviews</h3>
+    {% for review in reviews %}
+      {% for book in books %}
+        {% if review.reviewed_book == book %}
+        <hr>
+          <h4><a href="/bookreview/{{book.id}}">{{book.title}}</a> By: {{book.author}}<span class="label label-danger">Rating: {{review.rating}} <i class="fa fa-star" aria-hidden="true"></i></span> <a href="/like/{{review.id}}"><span class="label label-primary">Likes {{review.like}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a></h4>
+          {% for user in users %}
+            {% if user == review.review_creator %}
+            <h5><a href="/user/{{user.id}}">{{user.first_name}}</a> says:</h5>
+
+            <p><i class="fa fa-quote-left fa-pull-left fa-border" aria-hidden="true"></i> {{review.review}} <i class="fa fa-quote-right fa-border" aria-hidden="true"></i></p>
+            <p>Posted on: <span class="glyphicon glyphicon-time"></span> {{review.created_at}}</p>
+          </hr>
+          {% endif %}
+        {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    <a class="btn btn-default" href="/book_entry">
+      <i class="fa fa-book"></i> New Book</a>
+    <a class="btn btn-default" href="/logout">
+      <i class="fa fa-cog"></i> Logout</a>
+    </div>
+    <div class="right">
+    <h3>Other Reviews:</h3>
+    {% for book in books|slice:"6:11" %}
+      <p><a href="/bookreview/{{book.id}}">{{book.title}}</a></p>
+    {% endfor %}
+    </div>
+    <span class="one-stars"></span><span class="two-stars"></span><span class="three-stars"></span><span class="four-stars"></span><span class="five-stars"></span>
+  </div>
+  </body>
+</html>
