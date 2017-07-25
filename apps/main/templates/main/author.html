@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style media="screen">
+      .wrapper {
+        width: 70%;
+        padding-top: 20px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <a class="btn btn-default" href="/book_entry">
+        <i class="fa fa-book"></i> New Book</a>
+      <a class="btn btn-default" href="/new_book">
+        <i class="fa fa-home"></i> Home</a>
+      <a class="btn btn-default" href="/logout">
+        <i class="fa fa-cog"></i> Logout</a>
+      {% for book in books|slice:":1" %}
+        <h1>Author: {{ book.author }}</h1>
+        <h2>Books By This Author:</h2>
+      {% endfor %}
+
+        {% for book in books %}
+          <ul class="fa-ul">
+            <li><i class="fa-li fa fa-book"></i><a href="/bookreview/{{book.id}}">{{book.title}} </a></li>
+          </ul>
+        {% endfor %}
+    </div>
+  </body>
+</html>

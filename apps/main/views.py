@@ -115,6 +115,13 @@ def user(request, id):
     }
     return render(request, 'main/user.html', context)
 
+def author(request, author):
+    books = Book.objects.filter(author=author)
+    context = {
+        'books' : books,
+    }
+    return render(request, 'main/author.html', context)
+
 def logout(request):
     request.session.clear()
     return redirect('/')

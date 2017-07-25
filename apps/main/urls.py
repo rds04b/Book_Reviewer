@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^new_book$', views.new_book, name='new_book'),
     url(r'^new_review/(?P<id>\d+)$', views.new_review, name='new_review'),
     url(r'^user/(?P<id>\d+)$', views.user, name='user'),
+    url(r'^author/(?P<author>[\w\s]+)$', views.author, name='author'),
     url(r'^bookhome$', views.bookhome, name='bookhome'),
     url(r'^book_entry$', views.book_entry, name='book_entry'),
     url(r'^like/(?P<id>\d+)$', views.like, name='like'),

@@ -54,7 +54,7 @@
       {% for book in books %}
         {% if review.reviewed_book == book %}
         <hr>
-          <h4><a href="/bookreview/{{book.id}}">{{book.title}}</a> By: {{book.author}}<span class="label label-danger">Rating: {{review.rating}} <i class="fa fa-star" aria-hidden="true"></i></span> <a href="/like/{{review.id}}"><span class="label label-primary">Likes {{review.like}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a></h4>
+          <h4><a href="/bookreview/{{book.id}}">{{book.title}}</a> By: <a href="/author/{{book.author}}"> {{book.author}}</a><span class="label label-danger">Rating: {{review.rating}} <i class="fa fa-star" aria-hidden="true"></i></span> <a href="/like/{{review.id}}"><span class="label label-primary">Likes {{review.like}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span></a></h4>
           {% for user in users %}
             {% if user == review.review_creator %}
             <h5><a href="/user/{{user.id}}">{{user.first_name}}</a> says:</h5>
